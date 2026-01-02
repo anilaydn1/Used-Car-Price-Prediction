@@ -57,30 +57,26 @@ The most critical factors driving the price.
 How does the car's age and usage affect its value?
 ![PDP Analysis](outputs/pdp_analysis_rq1.png)
 
----
-
 ## 🚀 How to Run
 
 ### 1. Install Dependencies
 ```bash
+pip install -r requirements.txt
 2. Run Scripts
 Step 1: Prepare Data
-
-Bash
-
+```
+```bash
 python src/car_price_prepare.py
 Step 2: Train Model
-
-Bash
-
+```
+```bash
 python src/car_price_train.py
 Step 3: Visualize Results
-
-Bash
-
+```
+```bash
 python src/car_price_shap.py
 👥 Authors
-[Senin Adın] - [Öğrenci Numaran]
+[ANIL AYDIN] - [220717047]
 
-[Arkadaşının Adı] - [Arkadaşının Numarası]
-pip install -r requirements.txt
+[HAKAN ENES ERİŞEN] - [220717605]
+```
