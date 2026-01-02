@@ -1,5 +1,86 @@
-Used Car Price Prediction (Turkey)Description of the ProblemPredicting used car prices in Turkey is challenging due to economic fluctuations and high inflation. In this project, we built a regression model to estimate car prices based on features like Make, Model, Year, Mileage (km), and Engine Power.The goal is to determine the fair market value of a vehicle and understand which features affect the price the most using interpretability tools like SHAP.Dataset and PreprocessingWe used a dataset containing approximately 50,000 car listings.Preprocessing Steps:Cleaning:Removed outliers: Prices < 50,000 TL or > 20,000,000 TL.Removed vehicles with mileage > 1,000,000 km.Missing Values:Technical specs (motor_hacmi, motor_gucu) were filled with the Median.Categorical columns were filled with the Mode.Feature Engineering:Log Transformation: Applied np.log1p to the 'Price' column to handle skewed distribution.Encoding: Used Label Encoding for Brand/Model and One-Hot Encoding for Gear/Fuel types.MethodologyWe tested three different regression models to compare performance:Linear Regression (OLS): Baseline model.XGBoost: Gradient boosting method.Random Forest Regressor: Selected as the final model because it handled non-linear relationships better than OLS and gave the most stable results.Model ResultsThe models were trained on 80% of the data and tested on 20%. The metrics below are calculated on Real TL prices (converted back from log scale).ModelR² ScoreMAE (TL)RMSE (TL)Random Forest0.898488,540 ₺325,017 ₺XGBoost0.8875101,719 ₺341,924 ₺Linear Regression0.6561195,877 ₺597,841 ₺Observation: Tree-based models (Random Forest & XGBoost) performed significantly better than Linear Regression, reducing the error by half.Visualizations & InterpretationWe analyzed the model's decisions using SHAP and Partial Dependence Plots.Feature Importance: The most important factors for price are Year, Engine Power, and Mileage.SHAP Summary: Shows that newer cars and higher engine power positively impact the price, while high mileage has a strong negative impact.RQ1 Analysis (Year & Km): We visualized the marginal effect of Year and Mileage on price (saved in outputs/pdp_analysis_rq1.png).(Plots can be found in the outputs/ folder)How to Run the Project1. Environment SetupInstall the required libraries:Bashpip install -r requirements.txt
-2. Run the ScriptsExecute the following scripts in order:Step 1: Prepare Data (Cleans raw data and saves clean_car_data.csv)Bashpython src/car_price_prepare.py
-Step 2: Train Models (Trains RF, XGBoost, OLS and saves the best one)Bashpython src/car_price_train.py
-Step 3: Generate Plots (Creates SHAP and PDP graphs)Bashpython src/car_price_shap.py
-Project Structuredata/: Contains raw and cleaned datasets.src/: Python scripts for processing, training, and analysis.outputs/: Saved models (.pkl) and visualization results (.png).presentation/: Final project presentation (PDF).Authors[Anıl Aydın] - [220717047][Hakan Enes Erişen] - [220717605]
+# 🚗 Used Car Price Prediction (Turkey)
+
+## 📖 Description
+Predicting used car prices in Turkey is challenging due to economic fluctuations and high inflation. In this project, we built a regression model to estimate car prices based on features like **Make, Model, Year, Mileage (km), and Engine Power**.
+
+The goal is to determine the fair market value of a vehicle and understand which features affect the price the most using interpretability tools like **SHAP**.
+
+---
+
+## 📂 Dataset and Preprocessing
+We used a dataset containing approximately **50,000** car listings.
+
+### Preprocessing Steps 🛠️
+* **Cleaning:**
+  * Removed outliers: Prices < 50,000 TL or > 20,000,000 TL.
+  * Removed vehicles with mileage > 1,000,000 km.
+* **Missing Values:**
+  * Technical specs (`motor_hacmi`, `motor_gucu`) filled with **Median**.
+  * Categorical columns filled with **Mode**.
+* **Feature Engineering:**
+  * **Log Transformation:** Applied `np.log1p` to the 'Price' column.
+  * **Encoding:** Label Encoding for Brand/Model, One-Hot Encoding for Gear/Fuel types.
+
+---
+
+## 🤖 Methodology
+We tested three regression models:
+
+1. **Linear Regression (OLS):** Baseline model.
+2. **XGBoost:** Gradient boosting method.
+3. **Random Forest Regressor:** Selected as the **final model** (Best Performance).
+
+---
+
+## 📈 Model Results (Test Set)
+The models were evaluated on **Real TL prices** (inverse log-transformed).
+
+| Model | R² Score | MAE (TL) | RMSE (TL) | Status |
+|-------|----------|----------|-----------|--------|
+| **Random Forest** | **0.8984** | **88,540 ₺** | **325,017 ₺** | 🏆 **Winner** |
+| XGBoost | 0.8875 | 101,719 ₺ | 341,924 ₺ | Competitive |
+| Linear Regression | 0.6561 | 195,877 ₺ | 597,841 ₺ | Baseline |
+
+> **Insight:** Tree-based models reduced the error by **~50%** compared to Linear Regression.
+
+## 🔍 Visualizations & Explainability
+
+### 1. SHAP Summary Plot
+Shows which features push the price up (red) or down (blue).
+![SHAP Summary](outputs/shap_summary.png)
+
+### 2. Feature Importance
+The most critical factors driving the price.
+![Feature Importance](outputs/feature_importance.png)
+
+### 3. Year & Mileage Analysis (RQ1)
+How does the car's age and usage affect its value?
+![PDP Analysis](outputs/pdp_analysis_rq1.png)
+
+---
+
+## 🚀 How to Run
+
+### 1. Install Dependencies
+```bash
+2. Run Scripts
+Step 1: Prepare Data
+
+Bash
+
+python src/car_price_prepare.py
+Step 2: Train Model
+
+Bash
+
+python src/car_price_train.py
+Step 3: Visualize Results
+
+Bash
+
+python src/car_price_shap.py
+👥 Authors
+[Senin Adın] - [Öğrenci Numaran]
+
+[Arkadaşının Adı] - [Arkadaşının Numarası]
+pip install -r requirements.txt
